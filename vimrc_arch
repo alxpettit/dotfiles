@@ -1,0 +1,59 @@
+" This line should not be removed as it ensures that various options are
+" properly set to work with the Vim-related packages.
+runtime! archlinux.vim
+
+" do not load defaults if ~/.vimrc is missing
+"let skip_defaults_vim=1
+filetype plugin on
+set belloff=all
+set clipboard=unnamedplus
+set mouse=a
+set background=dark
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
+"nnoremap y "+y
+"vnoremap y "+y
+
+
+function! ToggleSideEffects()
+    if mapcheck("dd", "n") == ""
+        noremap dd "_dd
+        noremap D "_D
+        noremap d "_d
+        noremap X "_X
+        noremap x "_x
+ "       echo 'side effects off'
+    else
+        unmap dd
+        unmap D
+        unmap d
+        unmap X
+        unmap x
+  "      echo 'side effects on'
+    endif
+endfunction
+nnoremap ,, :call ToggleSideEffects()<CR>
+"call ToggleSideEffects()
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+
+
+function! WriteSudo()
+  w !sudo tee %
+  echom "Task complete."
+endfunction
+
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
+if has("autocmd")
+    filetype plugin indent on
+endif
+
+" Allow Ctrl+Backspace to delete words
+" Warning! May break on non-kitty terminals!
+inoremap <C-H> <C-W>

@@ -1,0 +1,25 @@
+# Last Modified: Wed Jan  6 14:26:14 2021
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile /usr/bin/plasma-browser-integration-host {
+  include <abstractions/base>
+  include <abstractions/kde-open5>
+
+  /etc/ld.so.cache r,
+  /etc/ld.so.preload r,
+  /proc/sys/kernel/core_pattern r,
+  /sys/devices/system/cpu/online r,
+  /usr/bin/plasma-browser-integration-host mr,
+  /usr/share/icons/** r,
+  /var/lib/flatpak/exports/share/mime/** r,
+
+  owner /home/*/.Xauthority r,
+  owner /home/*/.cache/icon-cache.kcache rw,
+  owner /home/*/.cache/mozilla/firefox/** rw,
+  owner /home/*/.config/kdeglobals r,
+  owner /home/*/.mozilla/firefox/** r,
+  owner /home/*/.mozilla/firefox/7rtkafii.dev-edition-default/.parentlock w,
+
+}

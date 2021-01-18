@@ -1,0 +1,26 @@
+DOTFILES:
+    USER: 'ada'
+    # USER_HOME: '/home/ada'
+
+paths:
+    default:
+        fish/: '/etc/fish/'
+        apparmor.d/: '/etc/apparmor.d/'
+        en_SE: '/usr/share/i18n/locales/'
+        vimrc: '/etc/'
+        locale.conf: '/etc/locale.conf'
+        locale.gen: '/etc/locale.gen'
+        tmux.conf: '/etc/tmux.conf'
+        mpv/: '/etc/mpv/'
+    tags:
+        gui:
+            gui-env/: '~/.cache/plasma-workspace/env/'
+    os:
+        ARCH:
+            vimrc_arch: '/etc/vimrc'
+        DEBIAN:
+            vimrc_debian: '/etc/vim/'
+            tmux.conf: '/etc/tmux/tmux.conf'
+
+hooks:
+    apparmor.d/: 'apparmor_parser ${src} -r'

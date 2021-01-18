@@ -1,0 +1,7 @@
+# Standard trash locale >.>
+en_US.UTF-8 UTF-8
+# Custom (actually decent) locale
+# Not actually en_SE on my systems,
+# but it has to be set to this to be compatible with badly programmed software,
+# KDE, I'm looking at you ;)
+en_SE.UTF-8 UTF-8

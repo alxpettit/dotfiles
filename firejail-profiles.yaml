@@ -1,0 +1,3 @@
+enabled:
+  - 'youtube-dl'
+  - 'ssh' 

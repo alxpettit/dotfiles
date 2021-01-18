@@ -1,0 +1,75 @@
+# Last Modified: Wed Jan  6 14:25:04 2021
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile /usr/lib/firefox-developer-edition/firefox {
+  include <abstractions/base>
+  include <abstractions/enchant>
+  include <abstractions/gio-open>
+  include <abstractions/gnome>
+  include <abstractions/nameservice>
+  include <abstractions/postfix-common>
+  include <abstractions/ssl_certs>
+  include <abstractions/ubuntu-browsers.d/ubuntu-integration>
+  include <abstractions/ubuntu-konsole>
+
+  capability sys_admin,
+
+  signal send set=kill peer=/usr/lib/firefox-developer-edition/firefox//null-/usr/lib/firefox-developer-edition/firefox,
+
+  ptrace read peer=/usr/lib/firefox-developer-edition/firefox//null-/usr/lib/firefox-developer-edition/firefox,
+
+  /dev/ r,
+  /etc/ca-certificates r,
+  /etc/ca-certificates/** r,
+  /etc/gai.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/ld.so.cache r,
+  /etc/ld.so.preload r,
+  /etc/mailcap r,
+  /etc/mime.types r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/resolv.conf r,
+  /etc/ssl/** r,
+  /etc/fstab r,
+  /proc/** rw,
+  /proc/sys/dev/i915/perf_stream_paranoid r,
+  /sys/bus/pci/devices/ r,
+  /sys/devices/** r,
+  /sys/devices/system/cpu r,
+  /sys/devices/system/cpu/** r,
+  /sys/fs/cgroup/cpu,cpuacct/cpu.cfs_quota_us r,
+  /usr/bin/plasma-browser-integration-host Px,
+  /usr/lib/firefox-developer-edition/ mrix,
+  /usr/lib/firefox-developer-edition/** mrix,
+  /usr/share/** r,
+  /var/lib/flatpak/exports/share/** r,
+  owner /home/*/.Xauthority r,
+  owner /home/*/.cache/event-sound-cache.* rwk,
+  owner /home/*/.cache/firefox/ rwk,
+  owner /home/*/.cache/firefox/** rwk,
+  owner /home/*/.cache/fontconfig/ rw,
+  owner /home/*/.cache/fontconfig/** rw,
+  owner /home/*/.cache/mesa_shader_cache/** rwk,
+  owner /home/*/.cache/mozilla/firefox/** rw,
+  owner /home/*/.config/dconf/user r,
+  owner /home/*/.config/gtk-*/** r,
+  owner /home/*/.config/mimeapps.list r,
+  owner /home/*/.config/pulse/cookie rk,
+  owner /home/*/.emulator_console_auth_token r,
+  owner /home/*/.gtkrc-* r,
+  owner /home/*/.local/share/applications/** r,
+  owner /home/*/.local/share/recently-used.xbel* rw,
+  owner /home/*/.mozilla/firefox/** rwk,
+  # allows scanning home
+  #owner /home/*/ r,
+  owner /home/*/Desktop/ r,
+  owner /home/*/Desktop/** rwk,
+  owner /home/*/Downloads/ r,
+  owner /home/*/Downloads/** rwk,
+  owner /run/user/*/pulse/ r,
+
+}
