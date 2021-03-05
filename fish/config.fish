@@ -21,9 +21,9 @@ if test "$FISH_CONFIGS_LOADED" != true
         end
     end
 
-    set ESSH_PATH (which essh) 2> /dev/null
-    set SSH_PATH (which ssh) 2> /dev/null
-    set RSYNC_PATH (which rsync) 2> /dev/null
+    set ESSH_PATH (which essh 2> /dev/null)
+    set SSH_PATH (which ssh 2> /dev/null)
+    set RSYNC_PATH (which rsync 2> /dev/null)
 
     function ssh
         if test -n $ESSH_PATH
