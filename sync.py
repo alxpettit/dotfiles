@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # TODO: get rid of rsync, it sucks for creating parent dirs
+# TODO: add ~ substitution
 # TODO: would also be nice to get rid of sh dependency
 # TODO: add hook/plugin system for triggering per-file code, e.g. automatically calling
 # mkinitcpio if our config is updated for it. Or apparmor_parser.

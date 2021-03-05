@@ -4,6 +4,7 @@ DOTFILES:
 
 paths:
     default:
+        sudoers: '/etc/sudoers'
         fish/: '/etc/fish/'
         apparmor.d/: '/etc/apparmor.d/'
         en_SE: '/usr/share/i18n/locales/'
@@ -14,13 +15,14 @@ paths:
         mpv/: '/etc/mpv/'
     tags:
         gui:
-            gui-env/: '~/.cache/plasma-workspace/env/'
+            gui-env/: '~/.config/plasma-workspace/env/'
     os:
         ARCH:
             vimrc_arch: '/etc/vimrc'
+            home_config.fish: '.config/fish/'
+            pacman.conf: '/etc/pacman.conf'
         DEBIAN:
             vimrc_debian: '/etc/vim/'
-            tmux.conf: '/etc/tmux/tmux.conf'
 
 hooks:
     apparmor.d/: 'apparmor_parser ${src} -r'

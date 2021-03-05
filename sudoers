@@ -1,0 +1,4 @@
+Defaults pwfeedback, passwd_timeout=0
+root ALL=(ALL) ALL
+%wheel ALL=(ALL) ALL
+%sudo   ALL=(ALL) ALL
