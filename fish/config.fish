@@ -84,4 +84,4 @@ if test "$FISH_CONFIGS_LOADED" != true
     import_env_var_file "$FISH_CONFIG_DIR/env.conf"
 end
 
-set -x FISH_CONFIGS_LOADED true
+set FISH_CONFIGS_LOADED true
