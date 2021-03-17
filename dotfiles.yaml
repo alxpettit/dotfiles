@@ -24,6 +24,7 @@ paths:
             pacman.conf: '/etc/pacman.conf'
         DEBIAN:
             vimrc_debian: '/etc/vim/'
+            en: '/var/lib/locales/supported.d/en'
 
 hooks:
     apparmor.d/: 'apparmor_parser ${src} -r'
