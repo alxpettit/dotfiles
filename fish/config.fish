@@ -49,9 +49,12 @@ if test "$FISH_CONFIGS_LOADED" != true
         function ssh
             "essh" $argv
         end
-        function rsync
-            "$RSYNC_PATH" "--rsh=$target_path" $argv
-        end
+        set rsync_path (command -s rsync)
+	    if test -n $rsync_path
+        	function rsync
+                $rsync_path "--rsh=$target_path" $argv
+        	end
+	    end
     end
 
     # Environment variables

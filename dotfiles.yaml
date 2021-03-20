@@ -27,3 +27,4 @@ paths:
             en: '/var/lib/locales/supported.d/en'
 hooks:
     apparmor.d/: 'apparmor_parser ${src} -r'
+    en: locale-gen
