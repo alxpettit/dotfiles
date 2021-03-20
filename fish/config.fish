@@ -1,18 +1,22 @@
 # Entry-point FISH config file
-# Copyleft (C) Alexandria Pettit, GNU GPLv3 
+# Copyleft (C) Alexandria Pettit, GNU GPLv3
 
 if test "$FISH_CONFIGS_LOADED" != true
 
     set FISH_CONFIG_DIR /etc/fish
 
-    function source_config_file
-        source "$FISH_CONFIG_DIR/$argv[1].fish"
+
+    # ESSENTIAL FISH UTIL FUNCTIONS
+
+    function futil_source_config_file
         if test -e "$FISH_CONFIG_DIR/$argv[1]_local.fish"
             source "$FISH_CONFIG_DIR/$argv[1]_local.fish"
+        else
+            source "$FISH_CONFIG_DIR/$argv[1].fish"
         end
     end
 
-    function import_env_var_file
+    function futil_import_env_var_file
         for line in (cat $argv[1])
             # If string isn't comment
             if not string match --regex -q  '^\s*#.*' "$line"
@@ -21,26 +25,33 @@ if test "$FISH_CONFIGS_LOADED" != true
         end
     end
 
-    set ESSH_PATH (which essh 2> /dev/null)
-    set SSH_PATH (which ssh 2> /dev/null)
-    set RSYNC_PATH (which rsync 2> /dev/null)
-
-    function ssh
-        if test -n $ESSH_PATH
-            set target_path $ESSH_PATH
-        else
-            set target_path $SSH_PATH
+    function futil_add_to_path
+        set new_item "$argv[1]"
+        if test -e "$new_item"
+            if not contains "$new_item" $argv[2..-1]
+                echo -n "$new_item"
+            end
         end
-        "$target_path" $argv
     end
 
-    function rsync
-        if test -n $ESSH_PATH
-            set target_path $ESSH_PATH
-        else
-            set target_path $SSH_PATH
+    function futil_update_path
+        set provisional_path_list /cbin {/var/lib,}/snap/bin {/usr/local,/usr,}/{bin,sbin} $PATH $HOME/bin
+        set NEW_PATH
+        for item in $provisional_path_list
+            set -a NEW_PATH (futil_add_to_path $item $NEW_PATH)
         end
-        "$RSYNC_PATH" "--rsh=$target_path" $argv
+        set -x PATH $NEW_PATH
+    end
+
+    futil_update_path
+
+    if command -sq essh
+        function ssh
+            "essh" $argv
+        end
+        function rsync
+            "$RSYNC_PATH" "--rsh=$target_path" $argv
+        end
     end
 
     # Environment variables
@@ -53,7 +64,7 @@ if test "$FISH_CONFIGS_LOADED" != true
     # TODO: have environment variables try to be set on login, and if they are, set a marker to disable loading them each time we load!
 
     if test -e '/etc/locale.conf'
-        import_env_var_file '/etc/locale.conf'
+        futil_import_env_var_file '/etc/locale.conf'
     end
 
     if status --is-interactive
@@ -72,16 +83,13 @@ if test "$FISH_CONFIGS_LOADED" != true
             thefuck --alias | source
         end
 
-        source_config_file functions
-
         # Abbreviation & alias declarations go here
-        source_config_file alias
-
-        source_config_file prompt
+        futil_source_config_file alias
+        futil_source_config_file prompt
     end
 
     # Any overrides for above would go here, naturally
-    import_env_var_file "$FISH_CONFIG_DIR/env.conf"
+    futil_import_env_var_file "$FISH_CONFIG_DIR/env.conf"
 end
 
 set FISH_CONFIGS_LOADED true

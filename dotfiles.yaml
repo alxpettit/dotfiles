@@ -16,6 +16,7 @@ paths:
     tags:
         gui:
             gui-env/: '~/.config/plasma-workspace/env/'
+            Clock.qml: '/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/Clock.qml'
     os:
         ARCH:
             vimrc_arch: '/etc/vimrc'
@@ -23,6 +24,5 @@ paths:
             pacman.conf: '/etc/pacman.conf'
         DEBIAN:
             vimrc_debian: '/etc/vim/'
-
 hooks:
     apparmor.d/: 'apparmor_parser ${src} -r'
