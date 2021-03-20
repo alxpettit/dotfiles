@@ -8,7 +8,6 @@ paths:
         fish/: '/etc/fish/'
         apparmor.d/: '/etc/apparmor.d/'
         en_SE: '/usr/share/i18n/locales/'
-        en: '/var/lib/locales/supported.d/en'
         vimrc: '/etc/'
         locale.conf: '/etc/locale.conf'
         locale.gen: '/etc/locale.gen'
