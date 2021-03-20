@@ -8,6 +8,7 @@ paths:
         fish/: '/etc/fish/'
         apparmor.d/: '/etc/apparmor.d/'
         en_SE: '/usr/share/i18n/locales/'
+        en: '/var/lib/locales/supported.d/en'
         vimrc: '/etc/'
         locale.conf: '/etc/locale.conf'
         locale.gen: '/etc/locale.gen'
@@ -24,5 +25,6 @@ paths:
             pacman.conf: '/etc/pacman.conf'
         DEBIAN:
             vimrc_debian: '/etc/vim/'
+            en: '/var/lib/locales/supported.d/en'
 hooks:
     apparmor.d/: 'apparmor_parser ${src} -r'
