@@ -1,23 +1,36 @@
 # Entry-point FISH config file
 # Copyleft (C) Alexandria Pettit, GNU GPLv3
 
-if test "$FISH_CONFIGS_LOADED" != true
-
-    set FISH_CONFIG_DIR /etc/fish
+if test "$FUTIL_CONFIGS_LOADED" != true
+    set FUTIL_DEBUG_MODE false
+    set FUTIL_CONF_DIR /etc/fish
+    set FUTIL_CONF_D_PATH "$FUTIL_CONF_DIR/conf.d"
 
 
     # ESSENTIAL FISH UTIL FUNCTIONS
 
+    function futil_debug_echo
+        if test "$FUTIL_DEBUG_MODE" = true
+            echo $argv
+        end
+    end
+
+    function futil_source
+        futil_debug_echo "Sourcing: $argv[1]"
+        source "$argv[1]"
+    end
+
     function futil_source_config_file
-        if test -e "$FISH_CONFIG_DIR/$argv[1]_local.fish"
-            source "$FISH_CONFIG_DIR/$argv[1]_local.fish"
+        if test -e "$FUTIL_CONF_DIR/$argv[1]_local.fish"
+            futil_source "$FUTIL_CONF_DIR/$argv[1]_local.fish"
         else
-            source "$FISH_CONFIG_DIR/$argv[1].fish"
+            futil_source "$FUTIL_CONF_DIR/$argv[1].fish"
         end
     end
 
     function futil_import_env_var_file
         for line in (cat $argv[1])
+            futil_debug_echo "Parsing: $line"
             # If string isn't comment
             if not string match --regex -q  '^\s*#.*' "$line"
                 set -xg (string split '=' "$line")
@@ -34,10 +47,17 @@ if test "$FISH_CONFIGS_LOADED" != true
         end
     end
 
+    function futil_import_conf_d
+        for file in (ls $FUTIL_CONF_D_PATH)
+            source "$FUTIL_CONF_D_PATH/$file"
+        end
+    end
+
     function futil_update_path
         set provisional_path_list /cbin {/var/lib,}/snap/bin {/usr/local,/usr,}/{bin,sbin} $PATH $HOME/bin
         set NEW_PATH
         for item in $provisional_path_list
+            futil_debug_echo "Checking path: $item"
             set -a NEW_PATH (futil_add_to_path $item $NEW_PATH)
         end
         set -x PATH $NEW_PATH
@@ -45,17 +65,8 @@ if test "$FISH_CONFIGS_LOADED" != true
 
     futil_update_path
 
-    if command -sq essh
-        function ssh
-            "essh" $argv
-        end
-        set rsync_path (command -s rsync)
-	    if test -n $rsync_path
-        	function rsync
-                $rsync_path "--rsh=$target_path" $argv
-        	end
-	    end
-    end
+    futil_import_conf_d
+
 
     # Environment variables
     # Typical instructions suggest to load envs iff `status --is-login`,
@@ -92,7 +103,7 @@ if test "$FISH_CONFIGS_LOADED" != true
     end
 
     # Any overrides for above would go here, naturally
-    futil_import_env_var_file "$FISH_CONFIG_DIR/env.conf"
+    futil_import_env_var_file "$FUTIL_CONF_DIR/env.conf"
 end
 
-set FISH_CONFIGS_LOADED true
+set FUTIL_CONFIGS_LOADED true
