@@ -54,7 +54,7 @@ if test "$FUTIL_CONFIGS_LOADED" != true
     end
 
     function futil_update_path
-        set provisional_path_list /cbin {/var/lib,}/snap/bin {/usr/local,/usr,}/{bin,sbin} $PATH $HOME/bin
+        set provisional_path_list /cbin /var/lib/flatpak/exports/bin/ {/var/lib,}/snap/bin {/usr/local,/usr,}/{bin,sbin} $PATH $HOME/.cargo/bin/ $HOME/cbin
         set NEW_PATH
         for item in $provisional_path_list
             futil_debug_echo "Checking path: $item"

@@ -14,6 +14,9 @@ set fish_suffix_user '$'
 set fish_send_notification 1
 set fish_notification_threshold 10000
 
+# green is more friendly with my blue light filter
+set fish_color_command 5F5
+set fish_color_param 0D0
 
 function fish_prompt --description "Write out the prompt"
     alias sudo /usr/bin/sudo
