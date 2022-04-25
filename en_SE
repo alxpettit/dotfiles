@@ -102,7 +102,7 @@ mon	"January";/
 	"November";/
 	"December"
 % Appropriate date and time representation (%c)
-d_t_fmt "%Y-%m-%d %H:%M:%S %z (%a, %b)"
+d_t_fmt "%Y-%m-%d %H:%M:%S (%a, %b) %z"
 %
 % Appropriate date representation (%x)
 d_fmt   "%Y-%m-%d"
@@ -118,7 +118,7 @@ t_fmt_ampm  "%H:%M:%S"
 % different from d_t_fmt for historical reasons and has been different
 % since 2000 when date_fmt was added as a GNU extension.  At the end
 % of 2018 it was adjusted to use 12H time (bug 24046) instead of 24H.
-date_fmt "%Y-%m-%d %H:%M:%S %z (%a, %b)"
+date_fmt "%Y-%m-%d %H:%M:%S (%a, %b) %z"
 %
 % Strings for AM/PM
 %
