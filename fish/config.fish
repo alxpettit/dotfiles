@@ -48,7 +48,7 @@ if test "$FUTIL_CONFIGS_LOADED" != true
     end
 
     function futil_import_conf_d
-        for file in (ls $FUTIL_CONF_D_PATH)
+        for file in $FUTIL_CONF_D_PATH/*
             source "$FUTIL_CONF_D_PATH/$file"
         end
     end
@@ -98,6 +98,7 @@ if test "$FUTIL_CONFIGS_LOADED" != true
         if test -e '/usr/bin/thefuck'
             thefuck --alias | source
         end
+        
 
         # Abbreviation & alias declarations go here
         futil_source_config_file alias

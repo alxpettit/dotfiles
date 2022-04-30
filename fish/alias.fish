@@ -11,6 +11,5 @@ alias sctl systemctl
 
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias ls='ls --color=auto'
+alias ls='exa -lab --time-style long-iso'
 alias pacman='pacman --color=auto'
-
